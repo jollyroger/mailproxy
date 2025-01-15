@@ -1,0 +1,15 @@
+[local]
+host = 127.0.0.1
+port = 10025
+
+[remote]
+host = 127.0.0.1
+port = 10026
+use_ssl = no
+starttls = no
+smtp_auth = no
+
+[filter]
+internal_domains = dev.box,dev.dev,mx.mydomain.com
+header_name = X-Class
+header_value = internal

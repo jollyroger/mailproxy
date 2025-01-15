@@ -1,0 +1,19 @@
+# Copy this file to /etc/systemd/system/mailproxy.service
+# run `sudo systemctl daemon-reload`
+# run `sudo systemctl enable mailproxy.service` to start automatically at boot
+# run `sudo systemctl start mailproxy.service` to start the service
+# use `sudo journalctl -f -u mailproxy.service` to monitor the logs
+
+[Unit]
+Description=mailproxy SMTP filtering proxy
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=nobody
+WorkingDirectory=/opt/mailproxy
+ExecStart=/opt/mailproxy/venv/bin/python mailproxy.py config.ini
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

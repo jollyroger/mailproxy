@@ -1,0 +1,17 @@
+# Add this to /etc/postfix/master.cf and reload postfix
+# Borrowed from http://thewalter.net/stef/software/proxsmtp/postfix.html
+
+# SMTP filter (used by content_filter)
+filter   unix  -       -       n       -       16      smtp
+        -o smtp_send_xforward_command=yes
+        -o smtp_tls_security_level=may
+# For injecting mail back into postfix from the filter
+127.0.0.1:10026 inet  n -       n       -       16      smtpd
+        -o content_filter=
+        -o receive_override_options=no_unknown_recipient_checks,no_header_body_checks
+        -o smtpd_helo_restrictions=
+        -o smtpd_client_restrictions=
+        -o smtpd_sender_restrictions=
+        -o smtpd_recipient_restrictions=permit_mynetworks,reject
+        -o mynetworks_style=host
+        -o smtpd_authorized_xforward_hosts=127.0.0.0/8
