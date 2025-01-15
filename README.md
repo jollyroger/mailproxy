@@ -48,3 +48,13 @@ The `[filter]` section allows to perform internal emails to be ent to
 non-internal recipients. In above example, if an email has an `X-Class:
 internal` SMTP Header, then all recipients that do not belong to internal
 domains will be removed.
+
+example command to test this:
+
+    swaks \
+        --server localhost:25 \
+        --from user@mx.senkovych.com \
+        --to to@example.com \
+        --cc cc@example.com \
+        --bcc bcc@example.com \
+        --header-X-Class "internal"
